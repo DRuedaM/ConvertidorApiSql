@@ -9,14 +9,17 @@ public class Main
 	{
 		try 
 		{
-			HttpRequest request = HttpRequest.newBuilder()
+			/*HttpRequest request = HttpRequest.newBuilder()
 					.uri(URI.create("https://myanimelist.p.rapidapi.com/anime/52991"))
 					.header("X-RapidAPI-Key", "8753c6cf24msh53b46ad39a8d287p1eb4f4jsn6e87232224ca")
 					.header("X-RapidAPI-Host", "myanimelist.p.rapidapi.com")
 					.method("GET", HttpRequest.BodyPublishers.noBody())
 					.build();
 			HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-			System.out.println(response.body());
+			System.out.println(response.body());*/
+			
+			DatabseManager dManager = new DatabseManager();
+			dManager.createConnection();
 		} 
 		catch (Exception e) 
 		{
