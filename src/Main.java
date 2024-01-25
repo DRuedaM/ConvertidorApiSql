@@ -1,9 +1,7 @@
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+import java.util.Scanner;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 public class Main
@@ -12,32 +10,37 @@ public class Main
 	{
 		try 
 		{
-			DatabseManager dManager = new DatabseManager();
-			dManager.createConnection();
+			String animeName;
+			Scanner teclado = new Scanner(System.in);
+			System.out.println("Introduzca el nombre del anime a buscar");
+			animeName = teclado.nextLine();
+			animeName = animeName.replace(" ", "%20");
+			//Se hace primero una busqueda del anime introducido por el usuario
+			JsonArray jsonBusqueda = new Gson().fromJson(ApiManager.makeRequest(animeName), JsonArray.class);
+			String resultadoBusqueda = jsonBusqueda.get(0).getAsJsonObject().get("myanimelist_id").getAsString();
+						
+			JsonObject jsonResultado= new Gson().fromJson(ApiManager.getAnime(resultadoBusqueda), JsonObject.class);
+			//Se crea el objeto AnimeContent para enviar los datos a la base de datos
+			AnimeContent animeContent = generateClass(jsonResultado);
 			
-			
-			HttpRequest request = HttpRequest.newBuilder()
-					.uri(URI.create("https://myanimelist.p.rapidapi.com/anime/52991"))
-					.header("X-RapidAPI-Key", "8753c6cf24msh53b46ad39a8d287p1eb4f4jsn6e87232224ca")
-					.header("X-RapidAPI-Host", "myanimelist.p.rapidapi.com")
-					.method("GET", HttpRequest.BodyPublishers.noBody())
-					.build();
-			HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-			
-			Gson gson = new Gson();
-			JsonObject json = new Gson().fromJson(response.body(), JsonObject.class);
-			
-			AnimeContent animeContent = new AnimeContent(json.get("title_ov").getAsString(), json.get("synopsis").getAsString(), json.get("information").getAsJsonObject().get("episodes").getAsString(), 
-					json.get("information").getAsJsonObject().get("status").getAsString(), json.get("information").getAsJsonObject().get("source").getAsString(), 
-					json.get("information").getAsJsonObject().get("genre").getAsString(), json.get("information").getAsJsonObject().get("duration").getAsString(), json.get("picture_url").getAsString());
-			
-			animeContent.showAllAtributes();
-			
+			//Se crea una instancia de la clase DatabaseManager
+			DatabaseManager dManager = new DatabaseManager();
+			//Abrimos la conexion con la base de datos
+			dManager.insertData(animeContent);
 		} 
 		catch (Exception e) 
 		{
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public static AnimeContent generateClass(JsonObject json) 
+	{
+		AnimeContent animeContent = new AnimeContent(json.get("title_ov").getAsString(), json.get("synopsis").getAsString(), json.get("information").getAsJsonObject().get("episodes").getAsString(), 
+				json.get("information").getAsJsonObject().get("status").getAsString(), json.get("information").getAsJsonObject().get("source").getAsString(), 
+				json.get("information").getAsJsonObject().get("genre").getAsString(), json.get("information").getAsJsonObject().get("duration").getAsString(), json.get("picture_url").getAsString());
+		
+		return animeContent;
 	}
 }

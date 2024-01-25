@@ -1,8 +1,9 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 
-public class DatabseManager 
+public class DatabaseManager 
 {
 	
 	private Connection connection;
@@ -10,11 +11,10 @@ public class DatabseManager
 	private String password = "admin";
 	private String url = "jdbc:mysql://localhost:3306/animelist";
 	private String databaseName = "animelist";
-	
 	private String table = "CREATE TABLE IF NOT EXISTS animecontent"
 			+ "("
 			+ "title_ov VARCHAR(45) NOT NULL, "
-			+ "synopsis VARCHAR(200) NOT NULL, "
+			+ "synopsis VARCHAR(5000) NOT NULL, "
 			+ "episodes VARCHAR(45) NOT NULL, "
 			+ "status VARCHAR(45) NOT NULL, "
 			+ "source VARCHAR(45) NOT NULL, "
@@ -24,9 +24,9 @@ public class DatabseManager
 			+ ")";
 	
 	
-	public DatabseManager(){}
+	public DatabaseManager(){}
 	
-	public DatabseManager(String user, String password, String url, String databaseName)
+	public DatabaseManager(String user, String password, String url, String databaseName)
 	{
 		this.user = user;
 		this.password = password;
@@ -52,6 +52,33 @@ public class DatabseManager
 			if(tableStatus == 0) System.out.println("Tabla de contenido creada!");
 		} 
 		
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void insertData(AnimeContent animeContent)
+	{
+		createConnection();
+		try 
+		{
+			String query = "INSERT INTO animecontent (title_ov, synopsis, episodes, status, source, genre, duration, picture_url) "
+					+ "VALUES "
+					+ "(?,?,?,?,?,?,?,?);";
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, animeContent.getTitle_ov());
+			preparedStatement.setString(2, animeContent.getSynopsis());
+			preparedStatement.setString(3, animeContent.getEpisodes());
+			preparedStatement.setString(4, animeContent.getStatus());
+			preparedStatement.setString(5, animeContent.getSource());
+			preparedStatement.setString(6, animeContent.getGenre());
+			preparedStatement.setString(7, animeContent.getDuration());
+			preparedStatement.setString(8, animeContent.getPicture_url());
+			
+			preparedStatement.execute();
+			connection.close();
+		} 
 		catch (Exception e) 
 		{
 			e.printStackTrace();

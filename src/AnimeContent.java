@@ -1,19 +1,13 @@
-import com.google.gson.annotations.Expose;
-
 public class AnimeContent 
 {
-	@Expose private String title_ov;
-	@Expose private String synopsis;
-	@Expose private String episodes;
-	@Expose private String status;
-	@Expose private String source;
-	@Expose private String genre;
-	@Expose private String duration;
-	@Expose private String picture_url;
-	
-	
-	
-	
+	private String title_ov;
+	private String synopsis;
+	private String episodes;
+	private String status;
+	private String source;
+	private String genre;
+	private String duration;
+	private String picture_url;
 	
 	public AnimeContent(String title_ov, String synopsis, String episodes, String status, String source, String genre,
 			String duration, String picture_url) 
