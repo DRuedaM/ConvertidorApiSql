@@ -36,7 +36,6 @@ public class DatabaseManager
 	
 	public void createConnection()
 	{
-		
 		try 
 		{
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -46,7 +45,7 @@ public class DatabaseManager
 			int dbStatus = statement.executeUpdate("CREATE DATABASE IF NOT EXISTS " + databaseName);
 			if(dbStatus > 0) System.out.println("Base de datos creada!");
 						
-			statement.executeUpdate("USE ANIMELIST;");
+			statement.executeUpdate("USE animelist;");
 			
 			int tableStatus = statement.executeUpdate(table);
 			if(tableStatus == 0) System.out.println("Tabla de contenido creada!");
