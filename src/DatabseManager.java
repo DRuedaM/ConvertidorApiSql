@@ -4,25 +4,24 @@ import java.sql.Statement;
 
 public class DatabseManager 
 {
-
+	
+	private Connection connection;
 	private String user = "root";
 	private String password = "admin";
-	private String url = "jdbc:mysql://localhost:3306/";
+	private String url = "jdbc:mysql://localhost:3306/animelist";
 	private String databaseName = "animelist";
-	private String table = "USE animelist;"
-			+ "CREATE TABLE IF NOT EXISTS animecontent"
+	
+	private String table = "CREATE TABLE IF NOT EXISTS animecontent"
 			+ "("
-			+ "title_ov VARCHAR(45) NOT NULL,"
-			+ "synopsis VARCHAR(200) NOT NULL,"
-			+ "episodes VARCHAR(45) NOT NULL,"
-			+ "status VARCHAR(45) NOT NULL,"
-			+ "source VARCHAR(45) NOT NULL,"
-			+ "genre VARCHAR(45) NOT NULL,"
-			+ "duration VARCHAR(45) NOT NULL,"
-			+ "picture_url VARCHAR(100) NOT NULL"
-			+ ");";
-			
-	private Connection connection;
+			+ "title_ov VARCHAR(45) NOT NULL, "
+			+ "synopsis VARCHAR(200) NOT NULL, "
+			+ "episodes VARCHAR(45) NOT NULL, "
+			+ "status VARCHAR(45) NOT NULL, "
+			+ "source VARCHAR(45) NOT NULL, "
+			+ "genre VARCHAR(45) NOT NULL, "
+			+ "duration VARCHAR(45) NOT NULL, "
+			+ "picture_url VARCHAR(100) NOT NULL " 
+			+ ")";
 	
 	
 	public DatabseManager(){}
@@ -47,12 +46,15 @@ public class DatabseManager
 			int dbStatus = statement.executeUpdate("CREATE DATABASE IF NOT EXISTS " + databaseName);
 			if(dbStatus > 0) System.out.println("Base de datos creada!");
 						
+			
+			statement.executeUpdate("USE ANIMELIST;");
+			
 			int tableStatus = statement.executeUpdate(table);
-			if(tableStatus > 0) System.out.println("Tabla de contenido creada!");
+			if(tableStatus == 0) System.out.println("Tabla de contenido creada!");
 		} 
+		
 		catch (Exception e) 
 		{
-			System.out.println(table);
 			e.printStackTrace();
 		}
 	}
