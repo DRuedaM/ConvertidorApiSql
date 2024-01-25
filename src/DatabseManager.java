@@ -46,7 +46,6 @@ public class DatabseManager
 			int dbStatus = statement.executeUpdate("CREATE DATABASE IF NOT EXISTS " + databaseName);
 			if(dbStatus > 0) System.out.println("Base de datos creada!");
 						
-			
 			statement.executeUpdate("USE ANIMELIST;");
 			
 			int tableStatus = statement.executeUpdate(table);
@@ -58,6 +57,8 @@ public class DatabseManager
 			e.printStackTrace();
 		}
 	}
+	
+	
 	
 	
 
