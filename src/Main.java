@@ -1,5 +1,4 @@
 import java.util.Scanner;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -31,8 +30,7 @@ public class Main
 		catch (Exception e) 
 		{
 			e.printStackTrace();
-		}
-		
+		}		
 	}
 	
 	public static AnimeContent generateClass(JsonObject json) 

@@ -13,7 +13,7 @@ public class ApiManager
 			//Se realiza una request a la api de myanimelist
 			HttpRequest request = HttpRequest.newBuilder()
 					.uri(URI.create("https://myanimelist.p.rapidapi.com/anime/1535"))
-					.header("X-RapidAPI-Key", "c990035ce4mshbf86d1410083439p1b6977jsn843aa5b63338")
+					.header("X-RapidAPI-Key", "84b2974b8dmsh0aae20c5eaeb6f8p156e46jsn9031e1ec01e3")
 					.header("X-RapidAPI-Host", "myanimelist.p.rapidapi.com")
 					.method("GET", HttpRequest.BodyPublishers.noBody())
 					.build();
@@ -33,7 +33,7 @@ public class ApiManager
 		{
 			HttpRequest request = HttpRequest.newBuilder()
 					.uri(URI.create("https://myanimelist.p.rapidapi.com/v2/anime/search?q=" + animeName + "&n=1&score=8"))
-					.header("X-RapidAPI-Key", "c990035ce4mshbf86d1410083439p1b6977jsn843aa5b63338")
+					.header("X-RapidAPI-Key", "84b2974b8dmsh0aae20c5eaeb6f8p156e46jsn9031e1ec01e3")
 					.header("X-RapidAPI-Host", "myanimelist.p.rapidapi.com")
 					.method("GET", HttpRequest.BodyPublishers.noBody())
 					.build();
@@ -53,7 +53,7 @@ public class ApiManager
 		{
 			HttpRequest request = HttpRequest.newBuilder()
 					.uri(URI.create("https://myanimelist.p.rapidapi.com/anime/" + animeId))
-					.header("X-RapidAPI-Key", "c990035ce4mshbf86d1410083439p1b6977jsn843aa5b63338")
+					.header("X-RapidAPI-Key", "84b2974b8dmsh0aae20c5eaeb6f8p156e46jsn9031e1ec01e3")
 					.header("X-RapidAPI-Host", "myanimelist.p.rapidapi.com")
 					.method("GET", HttpRequest.BodyPublishers.noBody())
 					.build();

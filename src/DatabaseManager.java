@@ -8,13 +8,13 @@ public class DatabaseManager
 	
 	private Connection connection;
 	private String user = "root";
-	private String password = "admin";
-	private String url = "jdbc:mysql://localhost:3306/animelist";
+	private String password = "66GgD1d5EhcB6g6AfCGa4aeBFBBhbABg";
+	private String url = "jdbc:mysql://viaduct.proxy.rlwy.net:26355/animelist";
 	private String databaseName = "animelist";
 	private String table = "CREATE TABLE IF NOT EXISTS animecontent"
 			+ "("
 			+ "title_ov VARCHAR(45) NOT NULL, "
-			+ "synopsis VARCHAR(5000) NOT NULL, "
+			+ "synopsis VARCHAR(10000) NOT NULL, "
 			+ "episodes VARCHAR(45) NOT NULL, "
 			+ "status VARCHAR(45) NOT NULL, "
 			+ "source VARCHAR(45) NOT NULL, "
